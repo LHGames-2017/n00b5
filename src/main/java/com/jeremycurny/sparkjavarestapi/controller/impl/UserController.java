@@ -71,15 +71,7 @@ public class UserController extends RestController {
         Tile targetTile = null;
 
         try {
-            try {
-                targetTile = findNearestNode(gameInfo.map, gameInfo.player);
-                tempTileTarget = targetTile;
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-                if (tempTileTarget != null)
-                    targetTile = tempTileTarget;
-            }
+            targetTile = findNearestNode(gameInfo.map, gameInfo.player);
 
         }
         catch(Exception e){
