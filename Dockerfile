@@ -2,7 +2,7 @@ FROM polyhx/java-seed
 
 ADD . .
 
-EXPOSE 3000
+EXPOSE 8080
 
 RUN mvn clean package
 
