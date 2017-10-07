@@ -101,9 +101,9 @@ public class App {
     }
 
     public static void updatePlayer(Player player) {
-        Label temp = (Label)listeLabel.get(player.Position.x).get(player.Position.y).getComponent(0);
+        Label temp = (Label)listeLabel.get(player.Position.x - 15).get(player.Position.y - 17).getComponent(0);
         temp.setText("HERE");
-        listeLabel.get(player.Position.x - 15).get(player.Position.y - 16).setBackground(Color.green);
+        listeLabel.get(player.Position.x - 15).get(player.Position.y - 17).setBackground(Color.green);
 
     }
 }

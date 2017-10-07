@@ -25,10 +25,20 @@ public class UserController extends RestController {
 		App.updatePlayer(gameInfo.player);
 
 
+//        Find a target because fuck you tahts why
+        int targetX, targetY;
+        targetX = gameInfo.player.Position.x;
+        targetY = gameInfo.player.Position.y;
 
+        targetX++;
+
+        gameInfo.player.Position.x = targetX;
+        gameInfo.player.Position.y = targetY;
 
 
 		// AI IMPLEMENTATION HERE.
+
+
 
 		String action = AiHelper.CreateMoveAction(gameInfo.player.Position);
 	    return super.resJson(req, res, 200, action);
