@@ -73,6 +73,10 @@ public class UserController extends RestController {
         }
         catch(Exception e){
             e.printStackTrace();
+            Double tempdouble1 = Math.floor(gameInfo.player.HouseLocation.x + Math.random()*30-15);
+            Double tempdouble2 = Math.floor(gameInfo.player.HouseLocation.y + Math.random()*30-15);
+
+            targetTile = new Tile(tempdouble1.intValue(), tempdouble2.intValue(), 0);
         }
 //
 

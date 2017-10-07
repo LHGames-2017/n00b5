@@ -56,9 +56,9 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/jeremycurny/sparkjavarestapi/controller/impl/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="148">
-              <caret line="165" column="0" lean-forward="true" selection-start-line="165" selection-start-column="0" selection-end-line="165" selection-end-column="0" />
+              <caret line="78" column="80" lean-forward="false" selection-start-line="78" selection-start-column="80" selection-end-line="78" selection-end-column="80" />
               <folding>
-                <element signature="e#6214#6220#0" expanded="true" />
+                <element signature="e#6501#6507#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -202,7 +202,7 @@
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="29" />
-    <option name="width" value="1920" />
+    <option name="width" value="960" />
     <option name="height" value="1051" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -420,12 +420,12 @@
       <workItem from="1507401047311" duration="1018000" />
       <workItem from="1507402254295" duration="2805000" />
       <workItem from="1507405144429" duration="1852000" />
-      <workItem from="1507407375538" duration="5092000" />
+      <workItem from="1507407375538" duration="6640000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31309000" />
+    <option name="totallyTimeSpent" value="32857000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="29" width="1920" height="1051" extended-state="6" />
@@ -503,7 +503,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/jeremycurny/sparkjavarestapi/controller/impl/UserController.java</url>
-          <line>98</line>
+          <line>102</line>
           <properties />
           <option name="timeStamp" value="40" />
         </line-breakpoint>
@@ -584,7 +584,7 @@
         <state relative-caret-position="360">
           <caret line="30" column="44" lean-forward="true" selection-start-line="30" selection-start-column="44" selection-end-line="30" selection-end-column="44" />
           <folding>
-            <element signature="e#6214#6220#0" expanded="true" />
+            <element signature="e#6501#6507#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -662,7 +662,7 @@
         <state relative-caret-position="234">
           <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
           <folding>
-            <element signature="e#6214#6220#0" expanded="true" />
+            <element signature="e#6501#6507#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -876,9 +876,9 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/jeremycurny/sparkjavarestapi/controller/impl/UserController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="148">
-          <caret line="165" column="0" lean-forward="true" selection-start-line="165" selection-start-column="0" selection-end-line="165" selection-end-column="0" />
+          <caret line="78" column="80" lean-forward="false" selection-start-line="78" selection-start-column="80" selection-end-line="78" selection-end-column="80" />
           <folding>
-            <element signature="e#6214#6220#0" expanded="true" />
+            <element signature="e#6501#6507#0" expanded="true" />
           </folding>
         </state>
       </provider>
