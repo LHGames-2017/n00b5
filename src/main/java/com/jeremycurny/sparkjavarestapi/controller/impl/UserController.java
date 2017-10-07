@@ -33,7 +33,7 @@ class NodePosition{
 
 public class UserController extends RestController {
     public static int currentLevel = 0;
-    public static int[] arrayUpgrade = {15000, 50000, 100000, 250000, 500000};
+    public static int[] arrayUpgrade = {15000, 65000, 165000, 415000, 915000};
 	@Override
 	public Object bot(Request req, Response res) {
 		String s = URLDecoder.decode(req.body()).substring(4);
