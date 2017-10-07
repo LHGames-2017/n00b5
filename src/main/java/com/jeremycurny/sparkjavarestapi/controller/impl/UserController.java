@@ -40,11 +40,15 @@ public class UserController extends RestController {
 		GameInfo gameInfo = new GameInfo();
 		gameInfo.fromJson(s);
         String action;
-//
+        Point lastPos = null;
+        boolean attack = false;
+
+        //
 //        System.out.println("print");
 
 		try {
 			App.updateGui(gameInfo.map);
+
         }
         catch(Exception e) {
 		    System.out.println("ERROR");
@@ -54,6 +58,9 @@ public class UserController extends RestController {
 
 
         }
+
+        System.out.println("Player Score: " + gameInfo.player.Score);
+        System.out.println("Player Health: " + gameInfo.player.Health);
 
 //        Find a target because fuck you tahts why
 
@@ -83,6 +90,7 @@ public class UserController extends RestController {
         }
 
         else if (gameInfo.player.CarriedResources < gameInfo.player.CarryingCapacity) {
+
             if (targetTile.X > gameInfo.player.Position.x)
                 targetX++;
             else if (targetTile.Y > gameInfo.player.Position.y)
@@ -104,6 +112,7 @@ public class UserController extends RestController {
             gameInfo.player.Position.y = targetY;
 
 
+
             // AI IMPLEMENTATION HERE.
 
 
@@ -112,6 +121,17 @@ public class UserController extends RestController {
         }
 
         else {
+
+            if (lastPos != null) {
+                if (lastPos.x == gameInfo.player.Position.x && lastPos.y == gameInfo.player.Position.y) {
+                    attack = true;
+                }
+                else {
+                    attack = false;
+                }
+            }
+
+
             if (gameInfo.player.HouseLocation.x > gameInfo.player.Position.x)
                 targetX++;
             else if (gameInfo.player.HouseLocation.y > gameInfo.player.Position.y)
@@ -136,9 +156,13 @@ public class UserController extends RestController {
 
             // AI IMPLEMENTATION HERE.
 
+            lastPos = new Point(gameInfo.player.Position.x, gameInfo.player.Position.y);
 
+            if (!attack)
+                action = AiHelper.CreateMoveAction(gameInfo.player.Position);
+            else 
+                action = AiHelper.CreateAttackAction(gameInfo.player.Position);
 
-            action = AiHelper.CreateMoveAction(gameInfo.player.Position);
         }
 
 

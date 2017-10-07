@@ -30,6 +30,7 @@ public class Player {
         MaxHealth = Integer.valueOf(player.get("MaxHealth").toString());
         CarriedResources = Integer.valueOf(player.get("CarriedResources").toString());
         CarryingCapacity = Integer.valueOf(player.get("CarryingCapacity").toString());
+        Score = Integer.valueOf(player.get("Score").toString());
 
         JSONObject position = (JSONObject)player.get("Position");
         Position = new Point();
