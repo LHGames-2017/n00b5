@@ -169,11 +169,12 @@ public class UserController extends RestController {
             lastPos = new Point(gameInfo.player.Position.x, gameInfo.player.Position.y);
 
             if (!attack) {
-                System.out.println("Trynna attack a wall");
                 action = AiHelper.CreateMoveAction(gameInfo.player.Position);
             }
-            else 
+            else {
+                System.out.println("Trynna attack a wall");
                 action = AiHelper.CreateAttackAction(gameInfo.player.Position);
+            }
 
             lastTurnTriedUpgrade = false;
 
