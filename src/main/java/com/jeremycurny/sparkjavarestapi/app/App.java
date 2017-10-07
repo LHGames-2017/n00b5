@@ -75,7 +75,7 @@ public class App {
 	}
 
 	public static void updateGui(List<List<Tile>> posMap) {
-        int [] arrayColors={Color.GRAY.getRGB(),Color.magenta.getRGB(),Color.CYAN.getRGB(), Color.RED.getRGB(), Color.YELLOW.getRGB()};
+        int [] arrayColors={Color.GRAY.getRGB(),Color.magenta.getRGB(),Color.CYAN.getRGB(), Color.RED.getRGB(), Color.YELLOW.getRGB(), Color.pink.getRGB(), Color.white.getRGB()};
 
         for (int i = 0; i< 20; i++) {
             for (int j = 0; j < 20; j++) {
@@ -100,10 +100,4 @@ public class App {
         }
     }
 
-    public static void updatePlayer(Player player) {
-        Label temp = (Label)listeLabel.get(player.Position.x - 15).get(player.Position.y - 17).getComponent(0);
-        temp.setText("HERE");
-        listeLabel.get(player.Position.x - 15).get(player.Position.y - 17).setBackground(Color.green);
-
-    }
 }

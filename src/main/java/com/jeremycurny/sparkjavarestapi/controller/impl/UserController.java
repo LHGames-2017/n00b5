@@ -18,19 +18,35 @@ public class UserController extends RestController {
 	public Object bot(Request req, Response res) {
 		String s = URLDecoder.decode(req.body()).substring(4);
 		GameInfo gameInfo = new GameInfo();
+		System.out.println("yolo");
 		gameInfo.fromJson(s);
 
 
-		App.updateGui(gameInfo.map);
-		App.updatePlayer(gameInfo.player);
+		try {
+			App.updateGui(gameInfo.map);
+        }
+        catch(Exception e) {
+		    System.out.println("ERROR");
+            e.printStackTrace();
+            System.out.println(e.getCause());
+            System.out.println(e.getStackTrace());
 
+
+        }
 
 //        Find a target because fuck you tahts why
+
         int targetX, targetY;
         targetX = gameInfo.player.Position.x;
         targetY = gameInfo.player.Position.y;
 
-        targetX++;
+        if (Math.floor(Math.random()*2) == 1)
+            if (Math.floor(Math.random()*2) == 1)targetX++;
+            else targetX--;
+
+        else
+            if (Math.floor(Math.random()*2) == 1)targetY++;
+            else targetY--;
 
         gameInfo.player.Position.x = targetX;
         gameInfo.player.Position.y = targetY;
