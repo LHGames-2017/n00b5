@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="40c8d9c0-74da-4d91-9e1c-77b74852a48f" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/jeremycurny/sparkjavarestapi/controller/impl/UserController.class" afterPath="$PROJECT_DIR$/target/classes/com/jeremycurny/sparkjavarestapi/controller/impl/UserController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeremycurny/sparkjavarestapi/app/App.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeremycurny/sparkjavarestapi/app/App.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jeremycurny/sparkjavarestapi/controller/impl/UserController.java" afterPath="$PROJECT_DIR$/src/main/java/com/jeremycurny/sparkjavarestapi/controller/impl/UserController.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -30,11 +33,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="App.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="App.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/jeremycurny/sparkjavarestapi/app/App.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1127">
-              <caret line="92" column="57" lean-forward="false" selection-start-line="92" selection-start-column="57" selection-end-line="92" selection-end-column="57" />
+            <state relative-caret-position="234">
+              <caret line="58" column="17" lean-forward="false" selection-start-line="58" selection-start-column="17" selection-end-line="58" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -52,13 +55,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UserController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/jeremycurny/sparkjavarestapi/controller/impl/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="78" column="80" lean-forward="false" selection-start-line="78" selection-start-column="80" selection-end-line="78" selection-end-column="80" />
+            <state relative-caret-position="900">
+              <caret line="75" column="44" lean-forward="true" selection-start-line="75" selection-start-column="44" selection-end-line="75" selection-end-column="44" />
               <folding>
-                <element signature="e#6501#6507#0" expanded="true" />
+                <element signature="e#6899#6905#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -170,11 +173,11 @@
         <option value="$PROJECT_DIR$/src/main/java/com/jeremycurny/sparkjavarestapi/util/AiHelper.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jeremycurny/sparkjavarestapi/util/TileContent.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jeremycurny/sparkjavarestapi/util/ActionContent.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jeremycurny/sparkjavarestapi/app/App.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jeremycurny/sparkjavarestapi/util/Point.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jeremycurny/sparkjavarestapi/util/Player.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jeremycurny/sparkjavarestapi/util/PlayerInfo.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jeremycurny/sparkjavarestapi/controller/impl/UserController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeremycurny/sparkjavarestapi/app/App.java" />
       </list>
     </option>
   </component>
@@ -420,12 +423,12 @@
       <workItem from="1507401047311" duration="1018000" />
       <workItem from="1507402254295" duration="2805000" />
       <workItem from="1507405144429" duration="1852000" />
-      <workItem from="1507407375538" duration="6640000" />
+      <workItem from="1507407375538" duration="7457000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32857000" />
+    <option name="totallyTimeSpent" value="33674000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="29" width="1920" height="1051" extended-state="6" />
@@ -503,7 +506,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/jeremycurny/sparkjavarestapi/controller/impl/UserController.java</url>
-          <line>102</line>
+          <line>116</line>
           <properties />
           <option name="timeStamp" value="40" />
         </line-breakpoint>
@@ -584,7 +587,7 @@
         <state relative-caret-position="360">
           <caret line="30" column="44" lean-forward="true" selection-start-line="30" selection-start-column="44" selection-end-line="30" selection-end-column="44" />
           <folding>
-            <element signature="e#6501#6507#0" expanded="true" />
+            <element signature="e#6899#6905#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -662,7 +665,7 @@
         <state relative-caret-position="234">
           <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
           <folding>
-            <element signature="e#6501#6507#0" expanded="true" />
+            <element signature="e#6899#6905#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -823,24 +826,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeremycurny/sparkjavarestapi/util/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
-          <caret line="32" column="20" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeremycurny/sparkjavarestapi/app/App.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1127">
-          <caret line="92" column="57" lean-forward="false" selection-start-line="92" selection-start-column="57" selection-end-line="92" selection-end-column="57" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/jeremycurny/sparkjavarestapi/util/PlayerInfo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="61">
@@ -875,10 +860,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/jeremycurny/sparkjavarestapi/controller/impl/UserController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="78" column="80" lean-forward="false" selection-start-line="78" selection-start-column="80" selection-end-line="78" selection-end-column="80" />
+        <state relative-caret-position="900">
+          <caret line="75" column="44" lean-forward="true" selection-start-line="75" selection-start-column="44" selection-end-line="75" selection-end-column="44" />
           <folding>
-            <element signature="e#6501#6507#0" expanded="true" />
+            <element signature="e#6899#6905#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeremycurny/sparkjavarestapi/util/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="457">
+          <caret line="32" column="20" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeremycurny/sparkjavarestapi/app/App.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="58" column="17" lean-forward="false" selection-start-line="58" selection-start-column="17" selection-end-line="58" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

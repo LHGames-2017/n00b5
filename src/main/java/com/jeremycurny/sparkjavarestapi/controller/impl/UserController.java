@@ -44,6 +44,8 @@ public class UserController extends RestController {
         boolean attack = false;
         boolean lastTurnTriedUpgrade = false;
 
+        Tile tempTileTarget = null;
+
         //
 //        System.out.println("print");
 
@@ -69,14 +71,26 @@ public class UserController extends RestController {
         Tile targetTile = null;
 
         try {
-            targetTile = findNearestNode(gameInfo.map, gameInfo.player);
+            try {
+                targetTile = findNearestNode(gameInfo.map, gameInfo.player);
+                tempTileTarget = targetTile;
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                if (tempTileTarget != null)
+                    targetTile = tempTileTarget;
+            }
+
         }
         catch(Exception e){
             e.printStackTrace();
             Double tempdouble1 = Math.floor(gameInfo.player.HouseLocation.x + Math.random()*30-15);
             Double tempdouble2 = Math.floor(gameInfo.player.HouseLocation.y + Math.random()*30-15);
 
-            targetTile = new Tile(tempdouble1.intValue(), tempdouble2.intValue(), 0);
+            if (targetTile == null) {
+                targetTile = new Tile(tempdouble1.intValue(), tempdouble2.intValue(), 0);
+                tempTileTarget = targetTile;
+            }
         }
 //
 
