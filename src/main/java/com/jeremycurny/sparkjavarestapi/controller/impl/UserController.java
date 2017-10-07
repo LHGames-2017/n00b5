@@ -22,6 +22,7 @@ public class UserController extends RestController {
 
 
 		App.updateGui(gameInfo.map);
+		App.updatePlayer(gameInfo.player);
 
 
 

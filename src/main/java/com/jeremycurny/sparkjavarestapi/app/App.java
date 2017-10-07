@@ -2,7 +2,9 @@ package com.jeremycurny.sparkjavarestapi.app;
 
 import static spark.Spark.*;
 
+import com.jeremycurny.sparkjavarestapi.util.Player;
 import com.jeremycurny.sparkjavarestapi.util.Tile;
+import com.jeremycurny.sparkjavarestapi.util.TileContent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +32,7 @@ public class App {
 
 		listeLabel = new ArrayList<ArrayList<Panel>>();
 
-		for (int i = 0; i< 21; i++) {
+		for (int i = 0; i< 20; i++) {
 			listeLabel.add(i, new ArrayList<Panel>());
 			for (int j = 0; j < 20; j++) {
 				listeLabel.get(i).add(j, new Panel());
@@ -73,14 +75,35 @@ public class App {
 	}
 
 	public static void updateGui(List<List<Tile>> posMap) {
+        int [] arrayColors={Color.GRAY.getRGB(),Color.magenta.getRGB(),Color.CYAN.getRGB(), Color.RED.getRGB(), Color.YELLOW.getRGB()};
 
-
-        for (int i = 0; i< 21; i++) {
+        for (int i = 0; i< 20; i++) {
             for (int j = 0; j < 20; j++) {
-//                Color color = new Color(posMap.get(i).get(j).Content);
+                Color color = new Color(arrayColors[posMap.get(i).get(j).Content]);
+                listeLabel.get(i).get(j).setBackground(color);
                 Label temp = (Label)listeLabel.get(i).get(j).getComponent(0);
-                temp.setText(posMap.get(i).get(j).Content.toString());
+                if (posMap.get(i).get(j).Content == 0)
+                    temp.setText("Empty");
+                else if (posMap.get(i).get(j).Content == 1)
+                    temp.setText("Wall");
+                else if (posMap.get(i).get(j).Content == 2)
+                    temp.setText("House");
+                else if (posMap.get(i).get(j).Content == 3)
+                    temp.setText("Lava");
+                else if (posMap.get(i).get(j).Content == 4)
+                    temp.setText("Resource");
+                else if (posMap.get(i).get(j).Content == 5)
+                    temp.setText("Shop");
+                else if (posMap.get(i).get(j).Content == 6)
+                    temp.setText("Player");
             }
         }
+    }
+
+    public static void updatePlayer(Player player) {
+        Label temp = (Label)listeLabel.get(player.Position.x).get(player.Position.y).getComponent(0);
+        temp.setText("HERE");
+        listeLabel.get(player.Position.x - 15).get(player.Position.y - 16).setBackground(Color.green);
+
     }
 }
