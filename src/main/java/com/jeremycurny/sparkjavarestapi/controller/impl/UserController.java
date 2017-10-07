@@ -16,9 +16,20 @@ import com.jeremycurny.sparkjavarestapi.util.Tile;
 import spark.Request;
 import spark.Response;
 
+import javax.xml.soap.Node;
+
 class NodePosition{
-    int x = -1;
-    int y = -1;
+    int x = 0;
+    int y = 0;
+    int distY = 99;
+    int distX = 99;
+
+    NodePosition(int x, int y, int distX, int distY) {
+        this.x = x;
+        this.y = y;
+        this.distX = distX;
+        this.distY = distY;
+    }
 }
 
 public class UserController extends RestController {
@@ -137,8 +148,9 @@ public class UserController extends RestController {
 
 
     private Tile findNearestNode(List<List<Tile>> map, Player player) {
-	    NodePosition nearestNode = new NodePosition();
-	    Tile tile = null;
+
+	    ArrayList<Tile> arrayPos = new ArrayList<Tile>();
+	    NodePosition nodeClosest = null;
 
         int distX = -1;
         int distY = -1;
@@ -146,12 +158,25 @@ public class UserController extends RestController {
         for (int i = 0; i<map.size(); i++) {
             for (int j = 0; j<map.get(i).size(); j++) {
                 if (map.get(i).get(j).Content == 4) {
-                    tile = map.get(i).get(j);
-                    break;
+                    arrayPos.add(map.get(i).get(j));
                 }
             }
         }
 
+
+        for (int i = 0; i<arrayPos.size(); i++) {
+            if (nodeClosest == null) {
+                nodeClosest = new NodePosition(arrayPos.get(i).X, arrayPos.get(i).Y, Math.abs(player.Position.x - arrayPos.get(i).X), Math.abs(player.Position.y - arrayPos.get(i).Y));
+            }
+
+            else if (nodeClosest.distX + nodeClosest.distY > Math.abs(player.Position.x - arrayPos.get(i).X)+ Math.abs(player.Position.y - arrayPos.get(i).Y)) {
+                nodeClosest = nodeClosest = new NodePosition(arrayPos.get(i).X, arrayPos.get(i).Y, Math.abs(player.Position.x - arrayPos.get(i).X), Math.abs(player.Position.y - arrayPos.get(i).Y));
+
+            }
+
+        }
+
+        Tile tile = new Tile(nodeClosest.x, nodeClosest.y, 4);
         return tile;
     }
 }
