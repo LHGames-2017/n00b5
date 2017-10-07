@@ -2,17 +2,14 @@ package com.jeremycurny.sparkjavarestapi.controller.impl;
 
 import com.jeremycurny.sparkjavarestapi.app.App;
 import com.jeremycurny.sparkjavarestapi.controller.RestController;
-import com.jeremycurny.sparkjavarestapi.util.AiHelper;
+import com.jeremycurny.sparkjavarestapi.util.*;
 
 import java.awt.*;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jeremycurny.sparkjavarestapi.util.GameInfo;
-import com.jeremycurny.sparkjavarestapi.util.Player;
 import com.jeremycurny.sparkjavarestapi.util.Point;
-import com.jeremycurny.sparkjavarestapi.util.Tile;
 import spark.Request;
 import spark.Response;
 
@@ -32,8 +29,11 @@ class NodePosition{
     }
 }
 
-public class UserController extends RestController {
 
+
+public class UserController extends RestController {
+    public static int currentLevel = 0;
+    public static int[] arrayUpgrade = {15000, 50000, 100000, 250000, 500000};
 	@Override
 	public Object bot(Request req, Response res) {
 		String s = URLDecoder.decode(req.body()).substring(4);
@@ -42,6 +42,7 @@ public class UserController extends RestController {
         String action;
         Point lastPos = null;
         boolean attack = false;
+        boolean lastTurnTriedUpgrade = false;
 
         //
 //        System.out.println("print");
@@ -59,6 +60,7 @@ public class UserController extends RestController {
 
         }
 
+        System.out.println("Player Level (Guesstimate): " + currentLevel);
         System.out.println("Player Score: " + gameInfo.player.Score);
         System.out.println("Player Health: " + gameInfo.player.Health);
 
@@ -79,13 +81,21 @@ public class UserController extends RestController {
         targetX = gameInfo.player.Position.x;
         targetY = gameInfo.player.Position.y;
 
-        if (gameInfo.player.CarriedResources < gameInfo.player.CarryingCapacity && (targetTile.X == gameInfo.player.Position.x-1 && targetTile.Y == gameInfo.player.Position.y || targetTile.X == gameInfo.player.Position.x+1 && targetTile.Y == gameInfo.player.Position.y || targetTile.X == gameInfo.player.Position.x && targetTile.Y == gameInfo.player.Position.y+1 || targetTile.X == gameInfo.player.Position.x && targetTile.Y == gameInfo.player.Position.y-1)) {
+        if (gameInfo.player.Position.x == gameInfo.player.HouseLocation.x && gameInfo.player.Position.y == gameInfo.player.HouseLocation.y && gameInfo.player.Score > arrayUpgrade[currentLevel] && !lastTurnTriedUpgrade) {
+            lastTurnTriedUpgrade = true;
+            currentLevel++;
+            action = AiHelper.CreateUpgradeAction(UpgradeType.CarryingCapacity);
+
+            System.out.println("TRYING TO LEVEL TO LEVEL " + currentLevel);
+        }
+
+        else if (gameInfo.player.CarriedResources < gameInfo.player.CarryingCapacity && (targetTile.X == gameInfo.player.Position.x-1 && targetTile.Y == gameInfo.player.Position.y || targetTile.X == gameInfo.player.Position.x+1 && targetTile.Y == gameInfo.player.Position.y || targetTile.X == gameInfo.player.Position.x && targetTile.Y == gameInfo.player.Position.y+1 || targetTile.X == gameInfo.player.Position.x && targetTile.Y == gameInfo.player.Position.y-1)) {
             System.out.println("GATHERING");
             System.out.println("Player Carried Ressources: " + gameInfo.player.CarriedResources);
             System.out.println("Player Carry capacity: " + gameInfo.player.CarryingCapacity);
 
 
-
+            lastTurnTriedUpgrade = false;
             action = AiHelper.CreateCollectAction(new Point(targetTile.X, targetTile.Y));
         }
 
@@ -116,7 +126,7 @@ public class UserController extends RestController {
             // AI IMPLEMENTATION HERE.
 
 
-
+            lastTurnTriedUpgrade = false;
             action = AiHelper.CreateMoveAction(gameInfo.player.Position);
         }
 
@@ -158,10 +168,14 @@ public class UserController extends RestController {
 
             lastPos = new Point(gameInfo.player.Position.x, gameInfo.player.Position.y);
 
-            if (!attack)
+            if (!attack) {
+                System.out.println("Trynna attack a wall");
                 action = AiHelper.CreateMoveAction(gameInfo.player.Position);
+            }
             else 
                 action = AiHelper.CreateAttackAction(gameInfo.player.Position);
+
+            lastTurnTriedUpgrade = false;
 
         }
 
