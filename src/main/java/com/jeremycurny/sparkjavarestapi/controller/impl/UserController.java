@@ -15,7 +15,7 @@ import spark.Response;
 
 import javax.xml.soap.Node;
 
-class NodePosition{
+class NodePosition {
     int x = 0;
     int y = 0;
     int distY = 99;
@@ -30,76 +30,93 @@ class NodePosition{
 }
 
 
-
 public class UserController extends RestController {
+
+    // Listes de points/score ou on peut tenter dupgrade
+
     public static int currentLevel = 0;
-    public static int[] arrayUpgrade = {15000, 65000, 165000, 415000, 915000};
-	@Override
-	public Object bot(Request req, Response res) {
-		String s = URLDecoder.decode(req.body()).substring(4);
-		GameInfo gameInfo = new GameInfo();
-		gameInfo.fromJson(s);
+    public static int[] arrayUpgrade = {15000, 30000, 80000, 130000, 230000, 330000, 580000, 830000, 1330000, 1830000};
+
+    @Override
+    public Object bot(Request req, Response res) {
+        String s = URLDecoder.decode(req.body()).substring(4);
+        GameInfo gameInfo = new GameInfo();
+        gameInfo.fromJson(s);
         String action;
+
+        // If lastPos == currentPos then try to attack wall that blocks us
         Point lastPos = null;
+
+        // Boolean whether to attack or move
         boolean attack = false;
+
+        // Dont get stuck at home indefinitely trying to upgrade yourself
         boolean lastTurnTriedUpgrade = false;
 
         Tile tempTileTarget = null;
 
-        //
-//        System.out.println("print");
 
-		try {
-			App.updateGui(gameInfo.map);
+        try {
 
-        }
-        catch(Exception e) {
-		    System.out.println("ERROR");
+            // Gui VRAIMENT beau
+            App.updateGui(gameInfo.map);
+
+        } catch (Exception e) {
+            System.out.println("ERROR");
             e.printStackTrace();
             System.out.println(e.getCause());
             System.out.println(e.getStackTrace());
 
-
         }
 
+
+        // Nice little infos
         System.out.println("Player Level (Guesstimate): " + currentLevel);
         System.out.println("Player Score: " + gameInfo.player.Score);
         System.out.println("Player Health: " + gameInfo.player.Health);
 
-//        Find a target because fuck you tahts why
 
+        //Try and find a target, else go find a node near your house
         Tile targetTile = null;
 
         try {
             targetTile = findNearestNode(gameInfo.map, gameInfo.player);
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            Double tempdouble1 = Math.floor(gameInfo.player.HouseLocation.x + Math.random()*30-15);
-            Double tempdouble2 = Math.floor(gameInfo.player.HouseLocation.y + Math.random()*30-15);
+            Double tempdouble1 = Math.floor(gameInfo.player.HouseLocation.x + Math.random() * 30 - 15);
+            Double tempdouble2 = Math.floor(gameInfo.player.HouseLocation.y + Math.random() * 30 - 15);
 
             if (targetTile == null) {
                 targetTile = new Tile(tempdouble1.intValue(), tempdouble2.intValue(), 0);
                 tempTileTarget = targetTile;
             }
         }
-//
 
-//		System.out.println("X: " + targetTile.X + "    - Y: " + targetTile.Y);
+
         int targetX, targetY;
         targetX = gameInfo.player.Position.x;
         targetY = gameInfo.player.Position.y;
 
-        if (gameInfo.player.Position.x == gameInfo.player.HouseLocation.x && gameInfo.player.Position.y == gameInfo.player.HouseLocation.y && gameInfo.player.Score > arrayUpgrade[currentLevel] && !lastTurnTriedUpgrade) {
+        // Handle the upgrade... Using the most efficient gathering update path
+        if (gameInfo.player.Position.x == gameInfo.player.HouseLocation.x && gameInfo.player.Position.y == gameInfo.player.HouseLocation.y &&
+                gameInfo.player.Score > arrayUpgrade[currentLevel] && !lastTurnTriedUpgrade) {
             lastTurnTriedUpgrade = true;
             currentLevel++;
-            action = AiHelper.CreateUpgradeAction(UpgradeType.CarryingCapacity);
+            if (currentLevel % 2 == 1)
+                action = AiHelper.CreateUpgradeAction(UpgradeType.CarryingCapacity);
+            else
+                action = AiHelper.CreateUpgradeAction(UpgradeType.CollectingSpeed);
 
             System.out.println("TRYING TO LEVEL TO LEVEL " + currentLevel);
         }
 
-        else if (gameInfo.player.CarriedResources < gameInfo.player.CarryingCapacity && (targetTile.X == gameInfo.player.Position.x-1 && targetTile.Y == gameInfo.player.Position.y || targetTile.X == gameInfo.player.Position.x+1 && targetTile.Y == gameInfo.player.Position.y || targetTile.X == gameInfo.player.Position.x && targetTile.Y == gameInfo.player.Position.y+1 || targetTile.X == gameInfo.player.Position.x && targetTile.Y == gameInfo.player.Position.y-1)) {
+        // Gather resources when within 1 tile of the resource
+        else if (gameInfo.player.CarriedResources < gameInfo.player.CarryingCapacity &&
+                (targetTile.X == gameInfo.player.Position.x - 1 && targetTile.Y == gameInfo.player.Position.y ||
+                        targetTile.X == gameInfo.player.Position.x + 1 && targetTile.Y == gameInfo.player.Position.y ||
+                        targetTile.X == gameInfo.player.Position.x && targetTile.Y == gameInfo.player.Position.y + 1 ||
+                        targetTile.X == gameInfo.player.Position.x && targetTile.Y == gameInfo.player.Position.y - 1)) {
             System.out.println("GATHERING");
             System.out.println("Player Carried Ressources: " + gameInfo.player.CarriedResources);
             System.out.println("Player Carry capacity: " + gameInfo.player.CarryingCapacity);
@@ -109,7 +126,17 @@ public class UserController extends RestController {
             action = AiHelper.CreateCollectAction(new Point(targetTile.X, targetTile.Y));
         }
 
+        // If you can still carry more resources, go near a node to gather it
         else if (gameInfo.player.CarriedResources < gameInfo.player.CarryingCapacity) {
+
+            if (lastPos != null) {
+                if (lastPos.x == gameInfo.player.Position.x && lastPos.y == gameInfo.player.Position.y) {
+                    attack = true;
+                } else {
+                    attack = false;
+                }
+            }
+
 
             if (targetTile.X > gameInfo.player.Position.x)
                 targetX++;
@@ -120,36 +147,32 @@ public class UserController extends RestController {
             else if (targetTile.Y < gameInfo.player.Position.y)
                 targetY--;
 
-            //        if (Math.floor(Math.random()*2) == 1)
-//            if (Math.floor(Math.random()*2) == 1)targetX++;
-//            else targetX--;
-//
-//        else
-//            if (Math.floor(Math.random()*2) == 1)targetY++;
-//            else targetY--;
-
             gameInfo.player.Position.x = targetX;
             gameInfo.player.Position.y = targetY;
 
 
-
-            // AI IMPLEMENTATION HERE.
-
-
             lastTurnTriedUpgrade = false;
-            action = AiHelper.CreateMoveAction(gameInfo.player.Position);
+            if (!attack) {
+                action = AiHelper.CreateMoveAction(gameInfo.player.Position);
+            } else {
+                System.out.println("Trynna attack a wall");
+                action = AiHelper.CreateAttackAction(gameInfo.player.Position);
+            }
         }
 
+
+        // Go back home with resources
         else {
 
             if (lastPos != null) {
                 if (lastPos.x == gameInfo.player.Position.x && lastPos.y == gameInfo.player.Position.y) {
                     attack = true;
-                }
-                else {
+                } else {
                     attack = false;
                 }
             }
+
+            lastPos = new Point(gameInfo.player.Position.x, gameInfo.player.Position.y);
 
 
             if (gameInfo.player.HouseLocation.x > gameInfo.player.Position.x)
@@ -162,26 +185,13 @@ public class UserController extends RestController {
                 targetY--;
 
 
-            //        if (Math.floor(Math.random()*2) == 1)
-//            if (Math.floor(Math.random()*2) == 1)targetX++;
-//            else targetX--;
-//
-//        else
-//            if (Math.floor(Math.random()*2) == 1)targetY++;
-//            else targetY--;
-
             gameInfo.player.Position.x = targetX;
             gameInfo.player.Position.y = targetY;
 
 
-            // AI IMPLEMENTATION HERE.
-
-            lastPos = new Point(gameInfo.player.Position.x, gameInfo.player.Position.y);
-
             if (!attack) {
                 action = AiHelper.CreateMoveAction(gameInfo.player.Position);
-            }
-            else {
+            } else {
                 System.out.println("Trynna attack a wall");
                 action = AiHelper.CreateAttackAction(gameInfo.player.Position);
             }
@@ -191,21 +201,20 @@ public class UserController extends RestController {
         }
 
 
+        return super.resJson(req, res, 200, action);
+    }
 
-	    return super.resJson(req, res, 200, action);
-	}
-
-
+    // Function to find nearest Resource node
     private Tile findNearestNode(List<List<Tile>> map, Player player) {
 
-	    ArrayList<Tile> arrayPos = new ArrayList<Tile>();
-	    NodePosition nodeClosest = null;
+        ArrayList<Tile> arrayPos = new ArrayList<Tile>();
+        NodePosition nodeClosest = null;
 
         int distX = -1;
         int distY = -1;
 
-        for (int i = 0; i<map.size(); i++) {
-            for (int j = 0; j<map.get(i).size(); j++) {
+        for (int i = 0; i < map.size(); i++) {
+            for (int j = 0; j < map.get(i).size(); j++) {
                 if (map.get(i).get(j).Content == 4) {
                     arrayPos.add(map.get(i).get(j));
                 }
@@ -213,12 +222,10 @@ public class UserController extends RestController {
         }
 
 
-        for (int i = 0; i<arrayPos.size(); i++) {
+        for (int i = 0; i < arrayPos.size(); i++) {
             if (nodeClosest == null) {
                 nodeClosest = new NodePosition(arrayPos.get(i).X, arrayPos.get(i).Y, Math.abs(player.Position.x - arrayPos.get(i).X), Math.abs(player.Position.y - arrayPos.get(i).Y));
-            }
-
-            else if (nodeClosest.distX + nodeClosest.distY > Math.abs(player.Position.x - arrayPos.get(i).X)+ Math.abs(player.Position.y - arrayPos.get(i).Y)) {
+            } else if (nodeClosest.distX + nodeClosest.distY > Math.abs(player.Position.x - arrayPos.get(i).X) + Math.abs(player.Position.y - arrayPos.get(i).Y)) {
                 nodeClosest = nodeClosest = new NodePosition(arrayPos.get(i).X, arrayPos.get(i).Y, Math.abs(player.Position.x - arrayPos.get(i).X), Math.abs(player.Position.y - arrayPos.get(i).Y));
 
             }
